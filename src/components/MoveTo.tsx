@@ -31,8 +31,6 @@ const MoveTo = () => {
     dispatch(setPage(page - 1));
   };
 
-  console.log(pagination);
-
   return (
     <Paper elevation={8} sx={{ margin: "12px", padding: "12px" }}>
       <Box
@@ -50,10 +48,22 @@ const MoveTo = () => {
             onClick={() => {
               navigate("/sec");
             }}
+            sx={{
+              "&:hover": {
+                color: "error.dark",
+              },
+            }}
           >
             <CloseIcon />
           </IconButton>
-          <IconButton onClick={() => setIsModalOpen(true)}>
+          <IconButton
+            onClick={() => setIsModalOpen(true)}
+            sx={{
+              "&:hover": {
+                color: "primary.dark",
+              },
+            }}
+          >
             <AddBoxIcon />
           </IconButton>
         </Box>
@@ -78,6 +88,11 @@ const MoveTo = () => {
                   onClick={() => {
                     setSelectedOrigin(origin);
                     setIsModalDeleteOpen(true);
+                  }}
+                  sx={{
+                    "&:hover": {
+                      color: "error.dark",
+                    },
                   }}
                 >
                   <DeleteIcon />

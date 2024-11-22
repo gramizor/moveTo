@@ -25,14 +25,21 @@ const MoveTo = () => {
     const handlePageChange = (_, page) => {
         dispatch(setPage(page - 1));
     };
-    console.log(pagination);
     return (_jsxs(Paper, { elevation: 8, sx: { margin: "12px", padding: "12px" }, children: [_jsxs(Box, { sx: {
                     justifyContent: "space-between",
                     alignItems: "center",
                     display: "flex",
                 }, children: [_jsx(Typography, { color: "text.primary", variant: "h6", children: "All origins" }), _jsxs(Box, { children: [_jsx(IconButton, { onClick: () => {
                                     navigate("/sec");
-                                }, children: _jsx(CloseIcon, {}) }), _jsx(IconButton, { onClick: () => setIsModalOpen(true), children: _jsx(AddBoxIcon, {}) })] })] }), _jsx(Box, { sx: { marginTop: "16px" }, children: loading ? (_jsx(Typography, { children: "Loading..." })) : origins.length !== 0 ? (origins.map((origin, index) => (_jsxs(Paper, { sx: {
+                                }, sx: {
+                                    "&:hover": {
+                                        color: "error.dark",
+                                    },
+                                }, children: _jsx(CloseIcon, {}) }), _jsx(IconButton, { onClick: () => setIsModalOpen(true), sx: {
+                                    "&:hover": {
+                                        color: "primary.dark",
+                                    },
+                                }, children: _jsx(AddBoxIcon, {}) })] })] }), _jsx(Box, { sx: { marginTop: "16px" }, children: loading ? (_jsx(Typography, { children: "Loading..." })) : origins.length !== 0 ? (origins.map((origin, index) => (_jsxs(Paper, { sx: {
                         padding: "8px",
                         marginBottom: "8px",
                         display: "flex",
@@ -40,6 +47,10 @@ const MoveTo = () => {
                     }, children: [_jsx(Typography, { children: origin.origin }), _jsx(IconButton, { onClick: () => {
                                 setSelectedOrigin(origin);
                                 setIsModalDeleteOpen(true);
+                            }, sx: {
+                                "&:hover": {
+                                    color: "error.dark",
+                                },
                             }, children: _jsx(DeleteIcon, {}) })] }, index)))) : (_jsx(Typography, { color: "text.secondary", children: "No origins, press \"+\" to add" })) }), _jsx(Box, { sx: { display: "flex", justifyContent: "center", marginTop: "16px" }, children: _jsx(Pagination, { count: pagination.totalPages, page: pagination.page + 1, onChange: handlePageChange, color: "primary" }) }), isModalOpen && (_jsx(AddOrigin, { open: isModalOpen, onClose: () => setIsModalOpen(false) })), isModalDeleteOpen && (_jsx(DeleteOrigin, { open: isModalDeleteOpen, onClose: () => setIsModalDeleteOpen(false), origin: selectedOrigin.origin, originId: selectedOrigin.id }))] }));
 };
 export default MoveTo;

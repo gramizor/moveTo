@@ -6,3 +6,7 @@ export const extractValidOrigins = (input) => {
         .filter((el) => el && httpRegex.test(el))
         .map((el) => el.replace(/['"]/g, "").trim());
 };
+export const cropUrl = (url) => {
+    const match = url.match(/^https?:\/\/([^\/]+)/);
+    return match ? match[0] : url;
+};

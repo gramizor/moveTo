@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import React, { useEffect, useState } from "react";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography, } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, TextField, Typography, } from "@mui/material";
 import { createOrigin } from "../api/usages";
 import { useDispatch, useSelector } from "react-redux";
 import { loadOrigins } from "../slices/Origin/originSlice";
-import { extractValidOrigins } from "../helpers/helper";
+import { cropUrl, extractValidOrigins } from "../helpers/helper";
 function useDebounce(value, delay) {
     const [debouncedValue, setDebouncedValue] = useState(value);
     useEffect(() => {
@@ -25,12 +25,14 @@ const AddOrigin = ({ open, onClose }) => {
     const { pagination } = useSelector((state) => state.origins);
     useEffect(() => {
         const validOrigins = extractValidOrigins(debouncedValue);
-        setElements(validOrigins);
+        const croppedOrigins = validOrigins.map((url) => cropUrl(url));
+        setElements(croppedOrigins);
     }, [debouncedValue]);
     const handleSubmit = async (e) => {
         e.preventDefault();
         const validOrigins = extractValidOrigins(debouncedValue);
-        setElements(validOrigins);
+        const croppedOrigins = validOrigins.map((url) => cropUrl(url));
+        setElements(croppedOrigins);
         if (validOrigins.length > 0) {
             try {
                 await createOrigin(validOrigins);
@@ -43,6 +45,6 @@ const AddOrigin = ({ open, onClose }) => {
             }
         }
     };
-    return (_jsxs(Dialog, { open: open, onClose: onClose, fullWidth: true, maxWidth: "sm", children: [_jsx(DialogTitle, { children: "Add Origin" }), _jsxs(DialogContent, { children: [_jsx("form", { onSubmit: handleSubmit, children: _jsx(TextField, { fullWidth: true, multiline: true, label: "Enter origin", value: inputValue, onChange: (e) => setInputValue(e.target.value), margin: "normal" }) }), _jsxs(Box, { mt: 2, children: [_jsx(Typography, { variant: "h6", gutterBottom: true, children: "List of origins:" }), elements.length > 0 ? (elements.map((el, index) => (_jsxs(React.Fragment, { children: [_jsx("a", { href: el, target: "_blank", rel: "noopener noreferrer", children: el }), index !== elements.length - 1 && ", "] }, index)))) : (_jsx(Typography, { children: "No valid origins found" }))] })] }), _jsxs(DialogActions, { children: [_jsx(Button, { onClick: onClose, color: "error", variant: "contained", children: "Close" }), _jsx(Button, { onClick: handleSubmit, color: "primary", type: "submit", variant: "contained", disabled: !elements.length, children: "Add" })] })] }));
+    return (_jsxs(Dialog, { open: open, onClose: onClose, fullWidth: true, maxWidth: "sm", children: [_jsx(DialogTitle, { children: "Add Origin" }), _jsxs(DialogContent, { children: [_jsx("form", { onSubmit: handleSubmit, children: _jsx(TextField, { fullWidth: true, multiline: true, label: "Enter origin", value: inputValue, onChange: (e) => setInputValue(e.target.value), margin: "normal" }) }), _jsxs(Box, { mt: 2, children: [_jsx(Typography, { variant: "h6", gutterBottom: true, children: "List of origins:" }), elements.length > 0 ? (elements.map((el, index) => (_jsx(React.Fragment, { children: _jsx(Paper, { elevation: 3, sx: { margin: "10px 0", padding: "5px" }, children: _jsx("a", { href: el, target: "_blank", rel: "noopener noreferrer", children: el }) }) }, index)))) : (_jsx(Typography, { children: "No valid origins found" }))] })] }), _jsxs(DialogActions, { children: [_jsx(Button, { onClick: onClose, color: "error", variant: "contained", children: "Close" }), _jsx(Button, { onClick: handleSubmit, color: "primary", type: "submit", variant: "contained", disabled: !elements.length, children: "Add" })] })] }));
 };
 export default AddOrigin;

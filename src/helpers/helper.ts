@@ -8,3 +8,8 @@ export const extractValidOrigins = (input: string): string[] => {
         .filter((el) => el && httpRegex.test(el))
         .map((el) => el.replace(/['"]/g, "").trim());
 };
+
+export const cropUrl = (url: string): string => {
+    const match = url.match(/^https?:\/\/([^\/]+)/);
+    return match ? match[0] : url;
+};
