@@ -25,11 +25,11 @@ const App = () => {
             element={<PublicRoute element={<Auth />} />}
           />
 
-          <Route path="/sec" element={<PrivateRoute element={<Layout />} />}>
+          <Route path="/sec/" element={<PrivateRoute element={<Layout />} />}>
             <Route path="move_to" element={<MoveTo />} />
           </Route>
 
-          <Route path="*" element={<Navigate to="/sec" />} />
+          <Route path="*" element={<Navigate to="/sec/" />} />
         </Routes>
       </BrowserRouter>
     </>

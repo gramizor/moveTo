@@ -1,7 +1,7 @@
 import axios, { AxiosHeaders, InternalAxiosRequestConfig } from "axios";
 
 const instance = axios.create({
-  baseURL: "http://31.129.105.53:8085/api/link/",
+  baseURL: "https://favores.site/api/link/",
 });
 
 instance.interceptors.request.use(
